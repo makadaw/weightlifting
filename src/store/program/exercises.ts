@@ -79,6 +79,10 @@ const list = {
   thruster: {
     name: "thruster",
     type: "clean"
+  },
+  "snatch-balance": {
+    name: "Snatch balance",
+    type: "snatch"
   }
 };
 
