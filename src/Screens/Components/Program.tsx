@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid, Breadcrumb, Container } from "semantic-ui-react";
 import { RootState } from "../../store";
 import { connect } from "react-redux";
 import { IWeek } from "../../store/program/types";
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router";
 import Week from "./Week";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Container, Grid, Breadcrumbs } from "@material-ui/core";
 
 const WeeksList: React.FC<{ program: IWeek[]; pathname: string }> = ({
   program,
@@ -13,15 +13,12 @@ const WeeksList: React.FC<{ program: IWeek[]; pathname: string }> = ({
 }) => {
   const renderWeek = (week: IWeek, i: number) => {
     return (
-      <Grid.Row columns={2} key={i}>
-        <Grid.Column width={2}></Grid.Column>
-        <Grid.Column>
-          <Link to={`${pathname}/week/${i + 1}`}>{`Week ${i + 1}`}</Link>
-        </Grid.Column>
-      </Grid.Row>
+      <Grid item xs={3}>
+        <Link to={`${pathname}/week/${i + 1}`}>{`Week ${i + 1}`}</Link>
+      </Grid>
     );
   };
-  return <Grid divided={"vertically"}>{program.map(renderWeek)}</Grid>;
+  return <Grid>{program.map(renderWeek)}</Grid>;
 };
 
 function weekIndexToWeek(weeks: IWeek[]) {
@@ -40,10 +37,10 @@ interface Props extends RouteComponentProps<{}> {
 const Program: React.FC<Props> = ({ program, match, location }) => {
   return (
     <React.Fragment>
-      <Breadcrumb>
-        <Breadcrumb.Section as={() => <Link to="/program">Program</Link>} />
-      </Breadcrumb>
-      <Container>
+      <Breadcrumbs>
+        <Link to="/program">Program</Link>
+      </Breadcrumbs>
+      <Container maxWidth={false}>
         <Switch>
           <Route
             path={match.url + "/week/:week"}

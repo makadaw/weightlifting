@@ -10,7 +10,7 @@ const week: IWeek = {
           excercise: [excerciseById("hyperextension")],
           rounds: [
             {
-              weight: 20,
+              weight: "20 kg",
               reps: "8",
               rounds: 4
             }

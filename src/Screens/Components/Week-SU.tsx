@@ -26,7 +26,7 @@ const Week: React.FC<Props> = ({ week }) => {
   };
 
   const renderExercise: any = (exc: IExcercisePercent, i: number) => {
-    console.log(exc.rounds.length)
+    console.log(exc.rounds.length);
     return (
       <Grid key={i}>
         <Grid.Row key={"title" + i}>
@@ -34,13 +34,12 @@ const Week: React.FC<Props> = ({ week }) => {
             <Header>{exc.excercise.map(e => e.name).join(" + ")}</Header>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row
-          key={"content" + i}
-          divided={true}
-          stretched={false}
-        >
+        <Grid.Row key={"content" + i} divided={true} stretched={false}>
           {exc.rounds.map((r, i) => (
-            <Grid.Column key={i} width={exc.rounds.length+1 as StrictGridColumnProps["width"]}>
+            <Grid.Column
+              key={i}
+              width={(exc.rounds.length + 1) as StrictGridColumnProps["width"]}
+            >
               <div style={{ width: 70, display: "flex" }}>
                 <div
                   style={{
@@ -96,9 +95,7 @@ const Week: React.FC<Props> = ({ week }) => {
           <Card.Content>
             <Card.Header as="h3">Day {i + 1}</Card.Header>
           </Card.Content>
-          <Card.Content>
-            {day.exercises.map(renderExercise)}
-          </Card.Content>
+          <Card.Content>{day.exercises.map(renderExercise)}</Card.Content>
         </Card>
       </Grid.Column>
     );

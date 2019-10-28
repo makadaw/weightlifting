@@ -13,5 +13,5 @@ export interface MenuItem {
 export interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   items: MenuItem[];
   pathname: string;
-  Link: React.ComponentClass<LinkProps<any>> | any;
+  // Link: React.ComponentClass<LinkProps<any>> | any;
 }
