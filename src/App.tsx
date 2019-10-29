@@ -19,7 +19,7 @@ const Root: React.FC<{ store: any; history: any }> = ({ store, history }) => {
           <Switch>
             <Route path="/program" component={withLayout(Home)} />
             <Route path="/about" component={withLayout(About)} />
-            <Redirect to="/program" />
+            <Redirect to="program" />
           </Switch>
         </ThemeProvider>
       </ConnectedRouter>
