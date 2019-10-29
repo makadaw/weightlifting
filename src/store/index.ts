@@ -3,12 +3,12 @@ import {
   getDefaultMiddleware,
   combineReducers
 } from "redux-starter-kit";
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import { routerMiddleware, connectRouter } from "connected-react-router";
 
 import program from "./program/week";
 
-export const history = createBrowserHistory();
+export const history = createHashHistory();
 
 const rootReducer = combineReducers({
   router: connectRouter(history),
