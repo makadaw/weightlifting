@@ -1,7 +1,7 @@
 import React from "react";
 import { RootState } from "../../store";
 import { connect } from "react-redux";
-import { IWeek } from "../../store/program/types";
+import { IWeek, IProgram } from "../../store/program/types";
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router";
 import Week from "./Week";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const WeeksList: React.FC<{ program: IWeek[]; pathname: string }> = ({
 }) => {
   const renderWeek = (week: IWeek, i: number) => {
     return (
-      <Grid item xs={3}>
+      <Grid key={i} item xs={3}>
         <Link to={`${pathname}/week/${i + 1}`}>{`Week ${i + 1}`}</Link>
       </Grid>
     );
@@ -32,7 +32,7 @@ function weekIndexToWeek(weeks: IWeek[]) {
 }
 
 interface Props extends RouteComponentProps<{}> {
-  program: IWeek[];
+  program: IProgram;
 }
 const Program: React.FC<Props> = ({ program, match, location }) => {
   return (
@@ -44,12 +44,12 @@ const Program: React.FC<Props> = ({ program, match, location }) => {
         <Switch>
           <Route
             path={match.url + "/week/:week"}
-            component={weekIndexToWeek(program)}
+            component={weekIndexToWeek(program.weeks)}
           />
           } />
           <Route
             component={() => (
-              <WeeksList program={program} pathname={location.pathname} />
+              <WeeksList program={program.weeks} pathname={location.pathname} />
             )}
           />
         </Switch>
@@ -60,7 +60,8 @@ const Program: React.FC<Props> = ({ program, match, location }) => {
 
 const mapStateToProps = (state: RootState, _: any) => {
   return {
-    program: state.program.weeks
+    // Select first program by default
+    program: state.program.programs[0]
   };
 };
 export default withRouter(connect(mapStateToProps)(Program));

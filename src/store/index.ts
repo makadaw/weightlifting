@@ -23,8 +23,6 @@ const store = configureStore<MyStore>({
 });
 
 export interface MyStore {
-  // language: string;
-  // country: string;
 }
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "redux-starter-kit";
 import gangProgram from "./gang8";
-import { IWeek } from "./types";
+import { IProgram } from "./types";
 
 interface State {
-  weeks: IWeek[];
-  selected?: IWeek;
+  programs: IProgram[]
+  selected?: IProgram;
 }
 
 const initialState: State = {
-  weeks: gangProgram
+  programs: [gangProgram]
 };
 
 interface IGetWeek {

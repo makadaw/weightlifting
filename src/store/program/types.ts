@@ -23,3 +23,10 @@ export interface IWeek {
   days: IDay[];
   description?: String;
 }
+
+export interface IProgram {
+  name: String,
+  description?: String,
+  url?: String,
+  weeks: IWeek[]
+}
