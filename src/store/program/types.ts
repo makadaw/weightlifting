@@ -25,8 +25,13 @@ export interface IWeek {
 }
 
 export interface IProgram {
-  name: String,
-  description?: String,
-  url?: String,
-  weeks: IWeek[]
+  name: String;
+  description?: String;
+  url?: String;
+  weeks: IWeek[];
+}
+
+export interface IPRWeigts {
+  snatch: number;
+  clean: number;
 }

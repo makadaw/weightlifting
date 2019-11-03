@@ -3,7 +3,7 @@ import gangProgram from "./gang8";
 import { IProgram } from "./types";
 
 interface State {
-  programs: IProgram[]
+  programs: IProgram[];
   selected?: IProgram;
 }
 

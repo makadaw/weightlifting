@@ -22,8 +22,7 @@ const store = configureStore<MyStore>({
   preloadedState: {}
 });
 
-export interface MyStore {
-}
+export interface MyStore {}
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

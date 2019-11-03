@@ -3,32 +3,44 @@ import { RootState } from "../../store";
 import { connect } from "react-redux";
 import { IWeek, IProgram } from "../../store/program/types";
 import { Route, Switch, withRouter, RouteComponentProps } from "react-router";
-import Week from "./Week";
 import { Link } from "react-router-dom";
 import { Container, Grid, Breadcrumbs } from "@material-ui/core";
+import Week from "./Week";
+import Day from "./Day";
 
-const WeeksList: React.FC<{ program: IWeek[]; pathname: string }> = ({
-  program,
-  pathname
-}) => {
-  const renderWeek = (week: IWeek, i: number) => {
+const WeeksList: React.FC<{
+  weeks: IWeek[];
+  linkTo: (to: string) => string;
+}> = ({ weeks, linkTo }) => {
+  const renderWeek = (_: IWeek, i: number) => {
     return (
       <Grid key={i} item xs={3}>
-        <Link to={`${pathname}/week/${i + 1}`}>{`Week ${i + 1}`}</Link>
+        <Link to={linkTo(`/week/${i + 1}`)}>{`Week ${i + 1}`}</Link>
       </Grid>
     );
   };
-  return <Grid>{program.map(renderWeek)}</Grid>;
+  return <Grid>{weeks.map(renderWeek)}</Grid>;
 };
 
-function weekIndexToWeek(weeks: IWeek[]) {
+function linkTo(basepath: string): (to: string) => string {
+  return (to: string) => `${basepath}${to}`;
+}
+
+function withParams<P>(
+  program: IProgram,
+  WrappedComponent: React.ComponentType<P>
+) {
   return ({
-    match: {
-      params: { week }
-    }
+    location: { pathname },
+    match: { params }
   }: {
-    match: { params: { week: number } };
-  }) => <Week week={weeks[week - 1]} />;
+    location: { pathname: string };
+    match: { params: P };
+  }) => (
+    <WrappedComponent
+      {...{ program, ...{ linkTo: linkTo(pathname) }, ...params }}
+    />
+  );
 }
 
 interface Props extends RouteComponentProps<{}> {
@@ -43,13 +55,21 @@ const Program: React.FC<Props> = ({ program, match, location }) => {
       <Container maxWidth={false}>
         <Switch>
           <Route
-            path={match.url + "/week/:week"}
-            component={weekIndexToWeek(program.weeks)}
+            path={match.url + "/week/:weekId/day/:dayId"}
+            component={withParams(program, Day)}
+          />
+          <Route
+            exact={true}
+            path={match.url + "/week/:weekId"}
+            component={withParams(program, Week)}
           />
           } />
           <Route
             component={() => (
-              <WeeksList program={program.weeks} pathname={location.pathname} />
+              <WeeksList
+                weeks={program.weeks}
+                linkTo={linkTo(location.pathname)}
+              />
             )}
           />
         </Switch>

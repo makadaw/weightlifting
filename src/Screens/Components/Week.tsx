@@ -1,39 +1,36 @@
 import React from "react";
-import { IWeek, IDay } from "../../store/program/types";
+import { IDay, IProgram } from "../../store/program/types";
 import {
   Container,
   Grid,
   Typography,
-  Theme,
   Box,
   Divider
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import ExerciseRound from "./ExerciseRound";
-
-const styles = makeStyles((_: Theme) => ({
-  dayColumn: {},
-  exercises: {
-    display: "flex",
-    flexDirection: "column"
-  }
-}));
+import { Link } from "react-router-dom";
+import { styles as dayStyles } from "./Day";
 
 type Props = {
-  week: IWeek;
+  program: IProgram;
+  weekId: number;
 };
 const Week: React.FC<Props> = props => {
-  let classes = styles(props);
-  let { week } = props;
+  let classes = dayStyles(props);
+  let { program, weekId } = props;
+  let week = program.weeks[weekId - 1];
 
   const renderDay: any = (day: IDay, i: number) => {
     return (
       <Grid item key={i}>
         <Box className={classes.dayColumn}>
-          <Typography variant="h5">{`Day ${i + 1}`}</Typography>
+          <Typography variant="h5">
+            {" "}
+            <Link to={`${weekId}/day/${i + 1}`}>{`Day ${i + 1}`}</Link>
+          </Typography>
           <Container className={classes.exercises}>
             {day.exercises.map((exc, i) => (
-              <ExerciseRound key={i} exc={exc} />
+              <ExerciseRound key={i} exc={exc} maxRounds={3} />
             ))}
           </Container>
         </Box>
@@ -42,15 +39,18 @@ const Week: React.FC<Props> = props => {
   };
 
   return (
-    <Container maxWidth={false}>
-      <Typography variant="h2" component="h2">
-        Week details
-      </Typography>
+    <React.Fragment>
+      <Typography variant="h4">{`Week ${weekId}`}</Typography>
       <Divider />
-      <Grid container wrap="nowrap">
+      <Grid
+        container
+        wrap="nowrap"
+        spacing={0}
+        className={classes.exercisesGrid}
+      >
         {week.days.map(renderDay)}
       </Grid>
-    </Container>
+    </React.Fragment>
   );
 };
 

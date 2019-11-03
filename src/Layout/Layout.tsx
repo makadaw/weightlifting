@@ -50,7 +50,7 @@ const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Container>
+      <Container maxWidth={"md"}>
         <HeaderMenu items={menuItems} pathname={pathname} />
       </Container>
 

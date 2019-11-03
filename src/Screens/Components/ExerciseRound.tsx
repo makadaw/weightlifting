@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, CardContent, Typography, Box, Theme } from "@material-ui/core";
-import { IExcercisePercent } from "../../store/program/types";
+import { IExcercisePercent, IPRWeigts } from "../../store/program/types";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { kgFromPercentWeight } from "../../store/program/functions";
 
 const styles = makeStyles((theme: Theme) => ({
   exercis: {
@@ -33,26 +34,39 @@ const styles = makeStyles((theme: Theme) => ({
 
 type Props = {
   exc: IExcercisePercent;
+  maxRounds?: number;
+  weights?: IPRWeigts;
 };
 const ExerciseRound: React.FC<Props> = props => {
   let classes = styles(props);
-  let { exc } = props;
+  // Set default snatch and clean weights
+  let { exc, maxRounds = -1, weights = { snatch: 60, clean: 90 } } = props;
+  let rounds = maxRounds > 0 ? exc.rounds.slice(0, maxRounds) : exc.rounds;
   return (
     <Card className={classes.exercis}>
       <CardContent>
         <Typography>{exc.excercise.map(e => e.name).join(" + ")}</Typography>
         <Box className={classes.rounds}>
-          {exc.rounds.map((r, i) => (
+          {rounds.map((r, i) => (
             <Box key={i} className={classes.roundBox}>
               <Box className={classes.roundWeghtReps}>
                 <Typography className={classes.bottomBorder}>
-                  {typeof r.weight === "string" ? r.weight : r.weight + "%"}
+                  {typeof r.weight === "string"
+                    ? r.weight
+                    : `${kgFromPercentWeight({
+                        weights,
+                        percent: r.weight as number,
+                        exc: exc.excercise[0]
+                      })} kg`}
                 </Typography>
                 <Typography>{r.reps}</Typography>
               </Box>
               <Typography className={classes.roundRound}>{r.rounds}</Typography>
             </Box>
           ))}
+          {maxRounds > 0 && rounds.length !== exc.rounds.length && (
+            <Box className={classes.roundBox}>...</Box>
+          )}
         </Box>
       </CardContent>
     </Card>

@@ -11,8 +11,10 @@ import * as week8 from "./week8";
 
 const gangProgram: IProgram = {
   name: "Gang 8 weeks program",
-  description: "TOROKHTIY_GANG TRAINING PROGRAM (8 weeks). More details also here https://www.reddit.com/r/weightlifting/comments/4p6dbs/torokhtiy_gang_training_program_8_weeks/",
-  url: "https://www.facebook.com/Torokhtiyo/photos/a.1534401943446315.1073741828.1532539936965849/1787365451483295/",
+  description:
+    "TOROKHTIY_GANG TRAINING PROGRAM (8 weeks). More details also here https://www.reddit.com/r/weightlifting/comments/4p6dbs/torokhtiy_gang_training_program_8_weeks/",
+  url:
+    "https://www.facebook.com/Torokhtiyo/photos/a.1534401943446315.1073741828.1532539936965849/1787365451483295/",
   weeks: [
     week1.default,
     week2.default,
