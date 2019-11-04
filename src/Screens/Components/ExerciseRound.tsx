@@ -10,11 +10,12 @@ const styles = makeStyles((theme: Theme) => ({
     width: "100%"
   },
   rounds: {
-    display: "flex"
+    display: "flex",
+    flexWrap: "wrap"
   },
   roundBox: {
     display: "flex",
-    margin: `0 ${theme.spacing()}px`
+    margin: `${theme.spacing()}px`,
   },
   roundWeghtReps: {
     display: "flex",
