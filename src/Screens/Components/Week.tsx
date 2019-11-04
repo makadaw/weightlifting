@@ -1,12 +1,6 @@
 import React from "react";
 import { IDay, IProgram } from "../../store/program/types";
-import {
-  Container,
-  Grid,
-  Typography,
-  Box,
-  Divider
-} from "@material-ui/core";
+import { Container, Grid, Typography, Box, Divider } from "@material-ui/core";
 import ExerciseRound from "./ExerciseRound";
 import { Link } from "react-router-dom";
 import { styles as dayStyles } from "./Day";
