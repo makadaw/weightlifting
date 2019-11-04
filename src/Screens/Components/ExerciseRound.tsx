@@ -57,7 +57,7 @@ const ExerciseRound: React.FC<Props> = props => {
                         weights,
                         percent: r.weight as number,
                         exc: exc.excercise[0]
-                      })} kg`}
+                      })} kg (${r.weight})%`}
                 </Typography>
                 <Typography>{r.reps}</Typography>
               </Box>
